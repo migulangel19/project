@@ -38,7 +38,7 @@ class CreateCampaignCommand extends Command
         
         $helper = $this->getHelper('question');
         
-        // Solicitar datos por consola
+        // Solicitamos datos por terminal
         $nameQ = new Question('Nombre de la campaña: ');
         $nameQ->setValidator(function ($value) {
             if (trim($value) === '') {
@@ -73,9 +73,10 @@ class CreateCampaignCommand extends Command
             // Validar fechas
             $startDate = new \DateTime($fechaInicio);
             $endDate = new \DateTime($fechaFin);
-            
+            //Miramos que la fecha posterior no sea mayor a la de inicio 
+            //Podria ser igual si es una campaña de un dia
             if ($endDate < $startDate) {
-                $io->error('La fecha de fin no puede ser anterior a la fecha de inicio');
+                $io->error('Fecha fin anterior a fecha inio');
                 return Command::FAILURE;
             }
             
